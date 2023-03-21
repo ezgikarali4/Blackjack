@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Jack</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <section class="player player--0 player--active">
+      <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
+      <div id="dealer-cards">
+        <img id="hidden" src="./cards/BACK.png" />
+      </div>
+    </section>
+
+    <section class="player player--1">
+      <h2>You: <span id="your-sum"></span></h2>
+      <div id="your-cards"></div>
+    </section>
+    <button class="btn" id="btn--new"onClick="window.location.reload()">🔄 New game</button>
+
+    <button class="btn" id="hit">🃏 Take card</button>
+    <button class="btn" id="stay">📥 Stay</button>
+    <p id="results"></p>
+  </body>
+</html>
