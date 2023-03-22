@@ -6,30 +6,65 @@
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/android-chrome-512x512.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="assets/favicon/android-chrome-512x512.png"
+    />
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
   </head>
 
   <body>
-    <section class="player player--0 player--active">
-      <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
-      <div id="dealer-cards">
-        <img id="hidden" src="./cards/BACK.png" />
+    <!--Multiple background music-->
+    <audio loop autoplay>
+      <source src="/assets/sounds/bg-music.mp3" type="audio/mp3" />
+    </audio>
+    <!-- <iframe hidden src="https://www.youtube.com/embed/GKtlRchHpx8?autoplay=1" ></iframe> -->
+    <div class="cards-container">
+      <section class="player player--0 player--active">
+        <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
+        <div id="dealer-cards">
+          <img id="hidden" src="./cards/BACK.png" />
+        </div>
+      </section>
+      <div class="result-div">
+        <p id="results"></p>
       </div>
-    </section>
-
-    <section class="player player--1">
-      <h2>You: <span id="your-sum"></span></h2>
-      <div id="your-cards"></div>
-    </section>
-    <button class="btn" id="btn--new"onClick="window.location.reload()">🔄 New game</button>
-
-    <button class="btn" id="hit">🃏 Take card</button>
-    <button class="btn" id="stay">📥 Stay</button>
-    <p id="results"></p>
+      <section class="player player--1">
+        <h2>You: <span id="your-sum"></span></h2>
+        <div id="your-cards"></div>
+      </section>
+      <div class="buttons">
+        <button class="btn" id="btn--new" onClick="window.location.reload()">
+          🔄 New game
+        </button>
+        <button class="btn" id="hit">🃏 Take card</button>
+        <button class="btn" id="stay">📥 Stay</button>
+      </div>
+    </div>
   </body>
 </html>

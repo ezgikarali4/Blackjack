@@ -7,11 +7,16 @@ var hidden, deck;
 
 var canHit = true; 
 var canStay = true;
+var cardShuffleSound;
+var takeCardSound;
+var cardTurnSound;
+
 
 window.onload = function () {
   buildDeck();
   shuffleDeck();
   startGame();
+  
 };
 
 function buildDeck() {
@@ -42,13 +47,15 @@ function buildDeck() {
 }
 
 function shuffleDeck() {
+ 
   for (let i = 0; i < deck.length; i++) {
     let j = Math.floor(Math.random() * deck.length); // (0-1) * 52 => (0-51.9999)
     let temp = deck[i];
     deck[i] = deck[j];
     deck[j] = temp;
   }
-  console.log(deck);
+  cardShuffleSound = new Audio('assets/sounds/shuffling-cards.mp3');
+  cardShuffleSound.play();
 }
 
 function startGame() {
@@ -66,7 +73,7 @@ function startGame() {
     dealerAceCount += checkAce(card);
     document.getElementById('dealer-cards').append(cardImg);
   }
-  console.log(dealerSum);
+ 
 
   for (let i = 0; i < 2; i++) {
     let cardImg = document.createElement('img');
@@ -77,16 +84,18 @@ function startGame() {
     document.getElementById('your-cards').append(cardImg);
   }
 
-  console.log(yourSum);
+
   document.getElementById('hit').addEventListener('click', hit);
   document.getElementById('stay').addEventListener('click', stay);
   document.getElementById('dealer-sum').innerText = shownDealerSum;
   document.getElementById('your-sum').innerText = yourSum;
-
+  
 
 }
 
 function hit() {
+  takeCardSound = new Audio('assets/sounds/take-card.mp3');
+  takeCardSound.play();
   if (!canHit) {
     return;
   }
@@ -139,6 +148,8 @@ function stay() {
   if (!canStay) {
     return;
   }
+  cardTurnSound = new Audio('assets/sounds/card-turn-on.mp3');
+  cardTurnSound.play();
   dealerSum = reduceAce(dealerSum, dealerAceCount);
   yourSum = reduceAce(yourSum, yourAceCount);
 
