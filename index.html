@@ -44,6 +44,47 @@
       <source src="/assets/sounds/bg-music.mp3" type="audio/mp3" />
     </audio>
     <!-- <iframe hidden src="https://www.youtube.com/embed/GKtlRchHpx8?autoplay=1" ></iframe> -->
+    <div class="overlay">
+      <div class="popup">
+        <h2>How to play Blackjack</h2>
+        <p>
+          Blackjack hands are scored by their point total. The hand with the
+          highest total wins as long as it doesn't exceed 21; a hand with a
+          higher total than 21 is said to bust. Cards 2 through 10 are worth
+          their face value, and face cards (jack, queen, king) are also worth
+          10. An ace's value is 11 unless this would cause the player to bust,
+          in which case it is worth 1. A hand in which an ace's value is counted
+          as 11 is called a soft hand, because it cannot be busted if the player
+          draws another card.
+        </p>
+        <h3>The play goes as follows:</h3>
+        <ul>
+          <li>
+            If the dealer has blackjack and the player doesn't, the player
+            automatically loses.
+          </li>
+          <li>
+            If the player has blackjack and the dealer doesn't, the player
+            automatically wins.
+          </li>
+          <li>
+            If both the player and dealer have blackjack then it's a push.
+          </li>
+          <li>
+            If neither side has blackjack, then each player plays out his hand,
+            one at a time.
+          </li>
+          <li>When all the players have finished the dealer plays his hand.</li>
+        </ul>
+        <h3>The player's options for playing his or her hand are:</h3>
+        <ul>
+          <li>Hit: Take another card.</li>
+          <li>Stand: Take no more cards.</li>
+        </ul>
+        <a id="close">Let's Go</a>
+      </div>
+    </div>
+
     <div class="cards-container">
       <section class="player player--0 player--active">
         <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>

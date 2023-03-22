@@ -5,18 +5,29 @@ var dealerAceCount = 0;
 var yourAceCount = 0;
 var hidden, deck;
 
-var canHit = true; 
+var canHit = true;
 var canStay = true;
 var cardShuffleSound;
 var takeCardSound;
 var cardTurnSound;
-
+const popup = document.querySelector('.popup');
 
 window.onload = function () {
-  buildDeck();
-  shuffleDeck();
-  startGame();
-  
+  setTimeout(function open(event) {
+    document.querySelector('.popup').style.display = 'block';
+    document.querySelector('.overlay').style.display = 'block';
+    document.querySelector('.cards-container').style.display = 'none';
+  });
+
+  document.querySelector('#close').addEventListener('click', function () {
+    document.querySelector('.popup').style.display = 'none';
+    document.querySelector('.overlay').style.display = 'none';
+
+    document.querySelector('.cards-container').style.display = 'flex';
+    buildDeck();
+    shuffleDeck();
+    startGame();
+  });
 };
 
 function buildDeck() {
@@ -47,7 +58,6 @@ function buildDeck() {
 }
 
 function shuffleDeck() {
- 
   for (let i = 0; i < deck.length; i++) {
     let j = Math.floor(Math.random() * deck.length); // (0-1) * 52 => (0-51.9999)
     let temp = deck[i];
@@ -73,7 +83,6 @@ function startGame() {
     dealerAceCount += checkAce(card);
     document.getElementById('dealer-cards').append(cardImg);
   }
- 
 
   for (let i = 0; i < 2; i++) {
     let cardImg = document.createElement('img');
@@ -84,13 +93,10 @@ function startGame() {
     document.getElementById('your-cards').append(cardImg);
   }
 
-
   document.getElementById('hit').addEventListener('click', hit);
   document.getElementById('stay').addEventListener('click', stay);
   document.getElementById('dealer-sum').innerText = shownDealerSum;
   document.getElementById('your-sum').innerText = yourSum;
-  
-
 }
 
 function hit() {
@@ -135,13 +141,13 @@ function hit() {
     message = 'You Lose!';
   }
   document.getElementById('your-sum').innerText = yourSum;
-if (canHit == false) {
-  document.getElementById('hit').classList.add('display');
-  document.getElementById('stay').classList.add('display');
-} else{
-  document.getElementById('hit').classList.remove('display');
-  document.getElementById('stay').classList.remove('display');
-}
+  if (canHit == false) {
+    document.getElementById('hit').classList.add('display');
+    document.getElementById('stay').classList.add('display');
+  } else {
+    document.getElementById('hit').classList.remove('display');
+    document.getElementById('stay').classList.remove('display');
+  }
 }
 
 function stay() {
@@ -178,10 +184,9 @@ function stay() {
   document.getElementById('dealer-sum').innerText = dealerSum;
   document.getElementById('your-sum').innerText = yourSum;
   document.getElementById('results').innerText = message;
-  
-    document.getElementById('hit').classList.add('display');
-    document.getElementById('stay').classList.add('display');
 
+  document.getElementById('hit').classList.add('display');
+  document.getElementById('stay').classList.add('display');
 }
 
 function getValue(card) {
@@ -213,3 +218,6 @@ function reduceAce(playerSum, playerAceCount) {
   return playerSum;
 }
 
+if(document.getElementById('results').innerText = message){
+      document.querySelector('.cards-container').style.display = 'none';
+}
