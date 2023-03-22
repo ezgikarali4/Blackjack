@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -55,7 +54,9 @@
           10. An ace's value is 11 unless this would cause the player to bust,
           in which case it is worth 1. A hand in which an ace's value is counted
           as 11 is called a soft hand, because it cannot be busted if the player
-          draws another card.
+          draws another card. A two-card hand of 21 (an ace plus a ten-value
+          card) is called a "blackjack" or a "natural", and is an automatic
+          winner.
         </p>
         <h3>The play goes as follows:</h3>
         <ul>
@@ -81,31 +82,36 @@
           <li>Hit: Take another card.</li>
           <li>Stand: Take no more cards.</li>
         </ul>
-        <a id="close">Let's Go</a>
-      </div>
-    </div>
-
-    <div class="cards-container">
-      <section class="player player--0 player--active">
-        <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
-        <div id="dealer-cards">
-          <img id="hidden" src="./cards/BACK.png" />
-        </div>
-      </section>
-      <div class="result-div">
-        <p id="results"></p>
-      </div>
-      <section class="player player--1">
-        <h2>You: <span id="your-sum"></span></h2>
-        <div id="your-cards"></div>
-      </section>
-      <div class="buttons">
-        <button class="btn" id="btn--new" onClick="window.location.reload()">
-          🔄 New game
+        <button id="close" class="f-button">
+            <span class="text">Let's Go</span>
         </button>
-        <button class="btn" id="hit">🃏 Take card</button>
-        <button class="btn" id="stay">📥 Stay</button>
       </div>
     </div>
+    <div class="main">
+      <div class="cards-container">
+        <section class="player player--0 player--active">
+          <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
+          <div id="dealer-cards">
+            <img id="hidden" src="./cards/BACK.png" />
+          </div>
+        </section>
+        <div class="result-div" id="result-message">
+          <p id="results"></p>
+        </div>
+        <section class="player player--1">
+          <h2>You: <span id="your-sum"></span></h2>
+          <div id="your-cards"></div>
+        </section>
+        <div class="buttons">
+          <button class="btn" id="btn--new" onClick="newGame()">
+            🔄 New game
+          </button>
+          <button class="btn" id="hit">🃏 Take card</button>
+          <button class="btn" id="stay">📥 Stay</button>
+        </div>
+      </div>
+    </div>
+        <script src="script.js"></script>
+
   </body>
 </html>

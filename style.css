@@ -5,29 +5,29 @@
   margin: 0;
   box-sizing: border-box;
 }
+html {
+  background: url(/assets/background.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
   color: #ffffff;
-  background-image: url(/assets/background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 h2 {
   font-size: 30px;
 }
-.overlay{
-    background: rgba(0,0,0,.4);
-    cursor: pointer;
-    height: 100%;
-    position: fixed;
-    text-align: center;
-    top: 0;
-    width: 100%;
-    z-index: 10000;
+.overlay {
+  background: rgba(0, 0, 0, 0.4);
+  min-height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
 }
 .popup {
   background-color: #ffffff;
@@ -47,16 +47,7 @@ h2 {
     0px 0px 32px 25px rgba(0, 0, 0, 0.41);
   box-shadow: 0px 10px 13px -7px #000000, 0px 0px 32px 25px rgba(0, 0, 0, 0.41);
 }
-.popup button {
-  display: block;
-  margin: 0 0 20px auto;
-  background-color: transparent;
-  font-size: 30px;
-  color: #c5c5c5;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
+
 .popup h3 {
   padding: 10px 0;
 }
@@ -82,11 +73,20 @@ a {
   text-decoration: none;
   padding: 5px 0;
 }
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  justify-content: space-around;
+}
 .cards-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 #dealer-cards,
 #your-cards {
@@ -110,23 +110,96 @@ a {
   gap: 10px;
 }
 .btn {
-  color: #444;
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-weight: 400;
-  transition: all 0.2s;
-
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-
+ appearance: none;
+ background-color: white;
+ border: 0.125em solid #1A1A1A;
+ border-radius: 0.9375em;
+ box-sizing: border-box;
+ color: #3B3B3B;
+ cursor: pointer;
+ display: inline-block;
+ font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+ font-size: 16px;
+ font-weight: 600;
+ line-height: normal;
+ margin: 0;
+ min-height: 3.75em;
+ min-width: 0;
+ outline: none;
+ padding: 1em 2.3em;
+ text-align: center;
+ text-decoration: none;
+ transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+ will-change: transform;
   padding: 0.7rem 2.5rem;
   border-radius: 50rem;
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
+  z-index: 10001;
+  text-transform: uppercase;
+}
+.btn:hover {
+ color: #fff;
+ background-color: #1A1A1A;
+ box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+ transform: translateY(-2px);
+}
+
+.btn:active {
+ box-shadow: none;
+ transform: translateY(0);
+}
+.f-button {
+  margin: 0 auto;
+  display: inline-block;
+ width: 150px;
+ height: 50px;
+ border-radius: 10px;
+ border: 1px solid #03045e;
+ position: relative;
+ overflow: hidden;
+ transition: all 0.5s ease-in;
+ z-index: 1;
+  cursor: pointer;
+}
+.f-button::before,
+.f-button::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ width: 0;
+ height: 100%;
+ transform: skew(15deg);
+ transition: all 0.5s;
+ overflow: hidden;
+ z-index: -1;
+}
+.f-button::before {
+ left: -10px;
+ background: #24b300;
+}
+
+.f-button::after {
+ right: -10px;
+ background: #006125;
+}
+
+.f-button:hover::before,
+.f-button:hover::after {
+ width: 58%;
+}
+
+.f-button:hover span {
+    color: #ffffff;
+ transition: 0.3s;
+}
+
+.f-button span {
+ color: #03045e;
+ font-size: 18px;
+ transition: all 0.3s ease-in;
 }
 
 .btn::first-letter {
@@ -134,18 +207,12 @@ a {
   display: inline-block;
   margin-right: 0.7rem;
 }
-.btn--new {
-  top: 4rem;
-  top: 4rem;
-  left: 200px;
-}
 
 .result-div {
   justify-content: center;
-  position: absolute;
-  top: 15%;
+  /* position: absolute; */
+  align-items: center;
   display: flex;
-
 }
 #results {
   font-size: 100px;
@@ -162,11 +229,17 @@ a {
     flex-direction: column;
     gap: 10px;
   }
-  .popup{
-    width: 100%; 
-        transform: translate(-50%, 0);
-        top: 10px;
-
-
+  .popup {
+    width: 100%;
+    transform: translate(-50%, 0);
+    top: 10px;
+  }
+  #your-cards img,
+  #dealer-cards img {
+    height: 120px;
+    width: 85px;
+  }
+  .btn {
+    padding: 0.5rem 2rem;
   }
 }

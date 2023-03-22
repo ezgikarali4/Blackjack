@@ -4,13 +4,11 @@ var shownDealerSum = 0;
 var dealerAceCount = 0;
 var yourAceCount = 0;
 var hidden, deck;
-
 var canHit = true;
 var canStay = true;
 var cardShuffleSound;
 var takeCardSound;
 var cardTurnSound;
-const popup = document.querySelector('.popup');
 
 window.onload = function () {
   setTimeout(function open(event) {
@@ -19,10 +17,9 @@ window.onload = function () {
     document.querySelector('.cards-container').style.display = 'none';
   });
 
-  document.querySelector('#close').addEventListener('click', function () {
+    document.querySelector('#close').addEventListener('click', function () {
     document.querySelector('.popup').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
-
     document.querySelector('.cards-container').style.display = 'flex';
     buildDeck();
     shuffleDeck();
@@ -97,6 +94,7 @@ function startGame() {
   document.getElementById('stay').addEventListener('click', stay);
   document.getElementById('dealer-sum').innerText = shownDealerSum;
   document.getElementById('your-sum').innerText = yourSum;
+  document.getElementById('result-message').classList.remove('overlay');
 }
 
 function hit() {
@@ -144,6 +142,9 @@ function hit() {
   if (canHit == false) {
     document.getElementById('hit').classList.add('display');
     document.getElementById('stay').classList.add('display');
+    document.getElementById('result-message').classList.add('overlay');
+    document.getElementById('result-message').classList.remove('display');
+
   } else {
     document.getElementById('hit').classList.remove('display');
     document.getElementById('stay').classList.remove('display');
@@ -187,6 +188,9 @@ function stay() {
 
   document.getElementById('hit').classList.add('display');
   document.getElementById('stay').classList.add('display');
+  document.getElementById('result-message').classList.add('overlay');
+  document.getElementById('result-message').classList.remove('display');
+
 }
 
 function getValue(card) {
@@ -218,6 +222,42 @@ function reduceAce(playerSum, playerAceCount) {
   return playerSum;
 }
 
-if(document.getElementById('results').innerText = message){
-      document.querySelector('.cards-container').style.display = 'none';
+function newGame() {
+  dealerSum = 0;
+  yourSum = 0;
+  shownDealerSum = 0;
+  dealerAceCount = 0;
+  yourAceCount = 0;
+  canHit = true;
+  canStay = true;
+  deck = [];
+  hidden = document.getElementById('hidden').src = './cards/BACK.png';
+  // while (document.getElementById('dealer-cards').hasChildNodes()) {
+  //     document
+  //       .getElementById('dealer-cards')
+  //       .removeChild(document.getElementById('dealer-cards').firstChild);
+  // }
+  while (document.getElementById('dealer-cards').lastChild.id !== 'hidden') {
+    document
+      .getElementById('dealer-cards')
+      .removeChild(document.getElementById('dealer-cards').lastChild);
+  }
+  while (document.getElementById('your-cards').hasChildNodes()) {
+    document
+      .getElementById('your-cards')
+      .removeChild(document.getElementById('your-cards').firstChild);
+  }
+  setTimeout(function open(event) {
+ 
+    document.getElementById('hit').classList.remove('display');
+    document.getElementById('stay').classList.remove('display');
+    document.getElementById('result-message').classList.add('display');
+    document.querySelector('.popup').style.display = 'none';
+    document.querySelector('.overlay').style.display = 'none';
+    document.querySelector('.cards-container').style.display = 'flex';
+    buildDeck();
+    shuffleDeck();
+    startGame();
+    
+  });  
 }
