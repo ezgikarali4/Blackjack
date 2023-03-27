@@ -219,7 +219,7 @@ function stand() {
   } else if (yourSum == 21) {
     blackjack();
   } else if (dealerSum == 21) {
-    message = 'Blackjack, You Lose!';
+    message = 'Blackjack! You Lose!';
   } else if (yourSum < 21 && dealerSum > 21) {
     message = 'You win!';
   } else if (yourSum > 21 && dealerSum > 21 && yourSum > dealerSum) {
@@ -244,17 +244,19 @@ function stand() {
   document.getElementById('stand').classList.add('display');
   document.getElementById('result-message').classList.add('overlay');
   document.getElementById('result-message').classList.remove('display');
-  if (
-    message == 'You Lose!' ||
-    message == 'Blackjack! You Lose!' ||
-    message == 'Busted! You Lose!'
-  ) {
-    document.getElementById('results').style.color = '#ff0000ab';
-  } else if (message == 'Blackjack! You Win!') {
-    document.getElementById('results').style.color = '#ffdd00ba';
-  } else {
-    document.getElementById('results').style.color = '#00ff21bd';
-  }
+   if (
+     message == 'You Lose!' ||
+     message == 'Blackjack! You Lose!' ||
+     message == 'Busted! You Lose!'
+   ) {
+     document.getElementById('results').style.color = '#ff0000ab';
+   } else if (message == 'Blackjack! You Win!') {
+     document.getElementById('results').style.color = '#ffdd00ba';
+   } else if (message == 'Push!') {
+     document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
+   } else {
+     document.getElementById('results').style.color = '#00ff21bd';
+   }
 }
 
 function getValue(card) {
