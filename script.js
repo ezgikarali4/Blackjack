@@ -96,6 +96,7 @@ function startGame() {
     cardImg.src = './cards/' + card + '.png';
     yourSum += getValue(card);
     yourAceCount += checkAce(card);
+    yourSum = reduceAce(yourSum, yourAceCount);
     document.getElementById('your-cards').append(cardImg);
   }
 
@@ -105,6 +106,7 @@ function startGame() {
   document.getElementById('your-sum').innerText = yourSum;
   document.getElementById('result-message').classList.remove('overlay');
   blackjack();
+  
 }
 function blackjack() {
   let message = '';
