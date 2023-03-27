@@ -5,7 +5,7 @@ var dealerAceCount = 0;
 var yourAceCount = 0;
 var hidden, deck;
 var canHit = true;
-var canStay = true;
+var canStand = true;
 var cardShuffleSound;
 var takeCardSound;
 var cardTurnSound;
@@ -17,7 +17,7 @@ window.onload = function () {
     document.querySelector('.cards-container').style.display = 'none';
   });
 
-    document.querySelector('#close').addEventListener('click', function () {
+  document.querySelector('#close').addEventListener('click', function () {
     document.querySelector('.popup').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.cards-container').style.display = 'flex';
@@ -70,8 +70,18 @@ function startGame() {
 
   dealerSum += getValue(hidden);
   dealerAceCount += checkAce(hidden);
+  // while (shownDealerSum < 17) {
+  //   let card = deck.pop();
+  //   dealerSum += getValue(card);
+  //   shownDealerSum += getValue(card);
+  //   dealerAceCount += checkAce(card);
+  //   let cardImg = document.createElement('img');
+  //   cardImg.src = './cards/' + card + '.png';
 
-  while (dealerSum < 17) {
+  //   document.getElementById('dealer-cards').append(cardImg);
+  // }
+  
+  for (let i = 0; i < 1; i++) {
     let cardImg = document.createElement('img');
     let card = deck.pop();
     cardImg.src = './cards/' + card + '.png';
@@ -80,7 +90,6 @@ function startGame() {
     dealerAceCount += checkAce(card);
     document.getElementById('dealer-cards').append(cardImg);
   }
-
   for (let i = 0; i < 2; i++) {
     let cardImg = document.createElement('img');
     let card = deck.pop();
@@ -91,12 +100,31 @@ function startGame() {
   }
 
   document.getElementById('hit').addEventListener('click', hit);
-  document.getElementById('stay').addEventListener('click', stay);
+  document.getElementById('stand').addEventListener('click', stand);
   document.getElementById('dealer-sum').innerText = shownDealerSum;
   document.getElementById('your-sum').innerText = yourSum;
   document.getElementById('result-message').classList.remove('overlay');
+  blackjack();
 }
-
+function blackjack() {
+  let message = '';
+  if (yourSum == 21) {
+    canHit = false;
+    canStand = false;
+    message = 'Blackjack! You Win!';
+    document.getElementById('results').innerText = message;
+    document.getElementById('your-sum').innerText = yourSum;
+  }
+  if (canHit == false) {
+    document.getElementById('hit').classList.add('display');
+    document.getElementById('stand').classList.add('display');
+    document.getElementById('result-message').classList.add('overlay');
+    document.getElementById('result-message').classList.remove('display');
+  } else {
+    document.getElementById('hit').classList.remove('display');
+    document.getElementById('stand').classList.remove('display');
+  }
+}
 function hit() {
   takeCardSound = new Audio('assets/sounds/take-card.mp3');
   takeCardSound.play();
@@ -119,40 +147,50 @@ function hit() {
 
   if (yourSum > 21) {
     canHit = false;
-    canStay = false;
-
+    canStand = false;
     message = 'Busted! You Lose!';
     document.getElementById('results').innerText = message;
-  } else if (yourSum <= 21 && dealerSum > 21) {
-    message = 'You win!';
-  } else if (yourSum > 21 && dealerSum > 21 && yourSum > dealerSum) {
-    message = 'You Lose!';
-  } else if (yourSum > 21 && dealerSum > 21 && yourSum < dealerSum) {
-    message = 'You win!';
+  } else if (yourSum == 21) {
+    blackjack();
   }
-  //both you and dealer <= 21
+  //both you and dealer < 21
   else if (yourSum == dealerSum) {
-    message = 'Tie!';
-  } else if (yourSum <= 21 && dealerSum <= 21 && yourSum > dealerSum) {
+    message = 'Push!';
+  } else if (yourSum < 21 && dealerSum < 21 && yourSum > dealerSum) {
     message = 'You Win!';
-  } else if (yourSum <= 21 && dealerSum <= 21 && yourSum < dealerSum) {
+  } else if (yourSum < 21 && dealerSum < 21 && yourSum < dealerSum) {
     message = 'You Lose!';
   }
   document.getElementById('your-sum').innerText = yourSum;
+
   if (canHit == false) {
     document.getElementById('hit').classList.add('display');
-    document.getElementById('stay').classList.add('display');
+    document.getElementById('stand').classList.add('display');
     document.getElementById('result-message').classList.add('overlay');
     document.getElementById('result-message').classList.remove('display');
-
   } else {
     document.getElementById('hit').classList.remove('display');
-    document.getElementById('stay').classList.remove('display');
+    document.getElementById('stand').classList.remove('display');
+  }
+
+  if (
+    message == 'You Lose!' ||
+    message == 'Blackjack! You Lose!' ||
+    message == 'Busted! You Lose!'
+  ) {
+    document.getElementById('results').style.color = '#ff0000ab';
+  } else if (message == 'Blackjack! You Win!') {
+    document.getElementById('results').style.color = '#ffdd00ba';
+  }else if(message == 'Push!') {
+    document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
+  }
+  else {
+    document.getElementById('results').style.color = '#00ff21bd';
   }
 }
 
-function stay() {
-  if (!canStay) {
+function stand() {
+  if (!canStand) {
     return;
   }
   cardTurnSound = new Audio('assets/sounds/card-turn-on.mp3');
@@ -162,11 +200,25 @@ function stay() {
 
   canHit = false;
   document.getElementById('hidden').src = './cards/' + hidden + '.png';
+  while (dealerSum < 17) {
+    let card = deck.pop();
+    dealerSum += getValue(card);
+    shownDealerSum += getValue(card);
+    dealerAceCount += checkAce(card);
+    let cardImg = document.createElement('img');
+    cardImg.src = './cards/' + card + '.png';
 
+    document.getElementById('dealer-cards').append(cardImg);
+  }
   let message = '';
+  blackjack();
   if (yourSum > 21) {
     message = 'You Lose!';
-  } else if (yourSum <= 21 && dealerSum > 21) {
+  } else if (yourSum == 21) {
+    blackjack();
+  } else if (dealerSum == 21) {
+    message = 'Blackjack, You Lose!';
+  } else if (yourSum < 21 && dealerSum > 21) {
     message = 'You win!';
   } else if (yourSum > 21 && dealerSum > 21 && yourSum > dealerSum) {
     message = 'You Lose!';
@@ -176,9 +228,9 @@ function stay() {
   //both you and dealer <= 21
   else if (yourSum == dealerSum) {
     message = 'Tie!';
-  } else if (yourSum <= 21 && dealerSum <= 21 && yourSum > dealerSum) {
+  } else if (yourSum < 21 && dealerSum < 21 && yourSum > dealerSum) {
     message = 'You Win!';
-  } else if (yourSum <= 21 && dealerSum <= 21 && yourSum < dealerSum) {
+  } else if (yourSum < 21 && dealerSum < 21 && yourSum < dealerSum) {
     message = 'You Lose!';
   }
 
@@ -187,10 +239,20 @@ function stay() {
   document.getElementById('results').innerText = message;
 
   document.getElementById('hit').classList.add('display');
-  document.getElementById('stay').classList.add('display');
+  document.getElementById('stand').classList.add('display');
   document.getElementById('result-message').classList.add('overlay');
   document.getElementById('result-message').classList.remove('display');
-
+  if (
+    message == 'You Lose!' ||
+    message == 'Blackjack! You Lose!' ||
+    message == 'Busted! You Lose!'
+  ) {
+    document.getElementById('results').style.color = '#ff0000ab';
+  } else if (message == 'Blackjack! You Win!') {
+    document.getElementById('results').style.color = '#ffdd00ba';
+  } else {
+    document.getElementById('results').style.color = '#00ff21bd';
+  }
 }
 
 function getValue(card) {
@@ -229,14 +291,10 @@ function newGame() {
   dealerAceCount = 0;
   yourAceCount = 0;
   canHit = true;
-  canStay = true;
+  canStand = true;
   deck = [];
   hidden = document.getElementById('hidden').src = './cards/BACK.png';
-  // while (document.getElementById('dealer-cards').hasChildNodes()) {
-  //     document
-  //       .getElementById('dealer-cards')
-  //       .removeChild(document.getElementById('dealer-cards').firstChild);
-  // }
+
   while (document.getElementById('dealer-cards').lastChild.id !== 'hidden') {
     document
       .getElementById('dealer-cards')
@@ -248,9 +306,8 @@ function newGame() {
       .removeChild(document.getElementById('your-cards').firstChild);
   }
   setTimeout(function open(event) {
- 
     document.getElementById('hit').classList.remove('display');
-    document.getElementById('stay').classList.remove('display');
+    document.getElementById('stand').classList.remove('display');
     document.getElementById('result-message').classList.add('display');
     document.querySelector('.popup').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
@@ -258,6 +315,7 @@ function newGame() {
     buildDeck();
     shuffleDeck();
     startGame();
-    
-  });  
+    blackjack();
+  });
 }
+
