@@ -126,6 +126,20 @@ function blackjack() {
     document.getElementById('hit').classList.remove('display');
     document.getElementById('stand').classList.remove('display');
   }
+
+  if (
+    message == 'You Lose!' ||
+    message == 'Blackjack! You Lose!' ||
+    message == 'Busted! You Lose!'
+  ) {
+    document.getElementById('results').style.color = '#ff0000ab';
+  } else if (message == 'Blackjack! You Win!') {
+    document.getElementById('results').style.color = '#ffdd00ba';
+  } else if (message == 'Push!') {
+    document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
+  } else {
+    document.getElementById('results').style.color = '#00ff21bd';
+  }
 }
 function hit() {
   takeCardSound = new Audio('assets/sounds/take-card.mp3');
