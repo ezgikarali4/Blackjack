@@ -1,5 +1,3 @@
-
-
 var dealerSum = 0;
 var yourSum = 0;
 var shownDealerSum = 0;
@@ -69,7 +67,7 @@ function shuffleDeck() {
 
 function startGame() {
   hidden = deck.pop();
-    takeCardSound = new Audio('assets/sounds/take-card.mp3');
+  takeCardSound = new Audio('assets/sounds/take-card.mp3');
 
   dealerSum += getValue(hidden);
   dealerAceCount += checkAce(hidden);
@@ -93,7 +91,9 @@ function startGame() {
     dealerAceCount += checkAce(card);
     setTimeout(function () {
       document.getElementById('dealer-cards').append(cardImg);
-    }, 2000);setTimeout(function () {
+      document.getElementById('dealer-sum').innerText = shownDealerSum;
+    }, 2000);
+    setTimeout(function () {
       takeCardSound.play();
     }, 2000);
     takeCardSound.play();
@@ -107,6 +107,7 @@ function startGame() {
     yourSum = reduceAce(yourSum, yourAceCount);
     setTimeout(function () {
       document.getElementById('your-cards').append(cardImg);
+      document.getElementById('your-sum').innerText = yourSum;
     }, 1000);
     setTimeout(function () {
       takeCardSound.play();
@@ -116,8 +117,6 @@ function startGame() {
 
   document.getElementById('hit').addEventListener('click', hit);
   document.getElementById('stand').addEventListener('click', stand);
-  document.getElementById('dealer-sum').innerText = shownDealerSum;
-  document.getElementById('your-sum').innerText = yourSum;
   document.getElementById('result-message').classList.remove('overlay');
   blackjack();
 }
@@ -348,4 +347,3 @@ function newGame() {
     blackjack();
   });
 }
-
