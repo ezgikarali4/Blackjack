@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css" />
+
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -38,11 +39,9 @@
   </head>
 
   <body>
-    <!--Multiple background music-->
     <audio loop autoplay>
       <source src="/assets/sounds/bg-music.mp3" type="audio/mp3" />
     </audio>
-    <!-- <iframe hidden src="https://www.youtube.com/embed/GKtlRchHpx8?autoplay=1" ></iframe> -->
     <div class="overlay">
       <div class="popup">
         <h2>How to play Blackjack</h2>
@@ -83,7 +82,7 @@
           <li>Stand: Take no more cards.</li>
         </ul>
         <button id="close" class="f-button">
-            <span class="text">Let's Go</span>
+          <span class="text">Let's Go</span>
         </button>
       </div>
     </div>
@@ -91,7 +90,7 @@
       <div class="cards-container">
         <section class="player player--0 player--active">
           <h2 class="name">Dealer: <span id="dealer-sum"></span></h2>
-          <div id="dealer-cards">
+          <div id="dealer-cards" class="cards-anime">
             <img id="hidden" src="./cards/BACK.png" />
           </div>
         </section>
@@ -100,7 +99,7 @@
         </div>
         <section class="player player--1">
           <h2>You: <span id="your-sum"></span></h2>
-          <div id="your-cards"></div>
+          <div id="your-cards" class="cards-anime"></div>
         </section>
         <div class="buttons">
           <button class="btn" id="btn--new" onClick="newGame()">
@@ -111,7 +110,26 @@
         </div>
       </div>
     </div>
-        <script src="obfuscated.js"></script>
+    <script src="script.min.js"></script>
+    <script src="/node_modules/animejs/lib/anime.min.js"></script>
+    <script>
+      //     var animation = anime({
+      //       targets: '.cards-anime',
+      //       translateX: 270,
+      // delay: anime.stagger(100)
+      //     });
 
+        var cardAnimation = anime({
+          targets:'.cards-anime',
+          translateX: 0,
+          rotate: '1turn',
+          autoplay: false,
+        }); 
+        document.querySelector('#close').onclick = cardAnimation.play;
+        document.querySelector('#btn--new').addEventListener('click', cardAnimation.play);
+
+
+  
+    </script>
   </body>
 </html>

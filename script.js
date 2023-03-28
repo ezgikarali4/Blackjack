@@ -1,3 +1,5 @@
+
+
 var dealerSum = 0;
 var yourSum = 0;
 var shownDealerSum = 0;
@@ -67,6 +69,7 @@ function shuffleDeck() {
 
 function startGame() {
   hidden = deck.pop();
+    takeCardSound = new Audio('assets/sounds/take-card.mp3');
 
   dealerSum += getValue(hidden);
   dealerAceCount += checkAce(hidden);
@@ -80,7 +83,7 @@ function startGame() {
 
   //   document.getElementById('dealer-cards').append(cardImg);
   // }
-  
+
   for (let i = 0; i < 1; i++) {
     let cardImg = document.createElement('img');
     let card = deck.pop();
@@ -88,7 +91,12 @@ function startGame() {
     dealerSum += getValue(card);
     shownDealerSum += getValue(card);
     dealerAceCount += checkAce(card);
-    document.getElementById('dealer-cards').append(cardImg);
+    setTimeout(function () {
+      document.getElementById('dealer-cards').append(cardImg);
+    }, 2000);setTimeout(function () {
+      takeCardSound.play();
+    }, 2000);
+    takeCardSound.play();
   }
   for (let i = 0; i < 2; i++) {
     let cardImg = document.createElement('img');
@@ -97,7 +105,13 @@ function startGame() {
     yourSum += getValue(card);
     yourAceCount += checkAce(card);
     yourSum = reduceAce(yourSum, yourAceCount);
-    document.getElementById('your-cards').append(cardImg);
+    setTimeout(function () {
+      document.getElementById('your-cards').append(cardImg);
+    }, 1000);
+    setTimeout(function () {
+      takeCardSound.play();
+    }, 1000);
+    takeCardSound.play();
   }
 
   document.getElementById('hit').addEventListener('click', hit);
@@ -106,7 +120,6 @@ function startGame() {
   document.getElementById('your-sum').innerText = yourSum;
   document.getElementById('result-message').classList.remove('overlay');
   blackjack();
-  
 }
 function blackjack() {
   let message = '';
@@ -197,10 +210,9 @@ function hit() {
     document.getElementById('results').style.color = '#ff0000ab';
   } else if (message == 'Blackjack! You Win!') {
     document.getElementById('results').style.color = '#ffdd00ba';
-  }else if(message == 'Push!') {
+  } else if (message == 'Push!') {
     document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
-  }
-  else {
+  } else {
     document.getElementById('results').style.color = '#00ff21bd';
   }
 }
@@ -258,19 +270,19 @@ function stand() {
   document.getElementById('stand').classList.add('display');
   document.getElementById('result-message').classList.add('overlay');
   document.getElementById('result-message').classList.remove('display');
-   if (
-     message == 'You Lose!' ||
-     message == 'Blackjack! You Lose!' ||
-     message == 'Busted! You Lose!'
-   ) {
-     document.getElementById('results').style.color = '#ff0000ab';
-   } else if (message == 'Blackjack! You Win!') {
-     document.getElementById('results').style.color = '#ffdd00ba';
-   } else if (message == 'Push!') {
-     document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
-   } else {
-     document.getElementById('results').style.color = '#00ff21bd';
-   }
+  if (
+    message == 'You Lose!' ||
+    message == 'Blackjack! You Lose!' ||
+    message == 'Busted! You Lose!'
+  ) {
+    document.getElementById('results').style.color = '#ff0000ab';
+  } else if (message == 'Blackjack! You Win!') {
+    document.getElementById('results').style.color = '#ffdd00ba';
+  } else if (message == 'Push!') {
+    document.getElementById('results').style.color = 'rgb(56 236 255 / 78%);';
+  } else {
+    document.getElementById('results').style.color = '#00ff21bd';
+  }
 }
 
 function getValue(card) {
